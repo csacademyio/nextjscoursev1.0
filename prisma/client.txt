@@ -1,0 +1,23 @@
+
+
+1. First Assertion - globalThis as unknown
+
+globalThis is a global object that represents the global scope, 
+which exists in both browsers and Node.js environments. 
+In TypeScript, globalThis has a default type definition that doesn’t 
+include a prisma property. By default, TypeScript would not allow you to add properties 
+to globalThis without modifying its type declaration.
+To temporarily bypass the strict type-checking, 
+the code first casts globalThis to unknown. 
+The unknown type is TypeScript’s safe counterpart to any. 
+By casting it to unknown, 
+TypeScript stops caring about the current type structure 
+of globalThis.
+
+2. Second Assertion - as {prisma: PrismaClientSingleton | undefined}
+
+After casting globalThis to unknown, the second type assertion casts it to a custom object structure that includes a prisma property.
+In this case, we’re asserting that globalThis will have a property prisma, 
+which is of type PrismaClientSingleton | undefined. 
+This means the property prisma will either hold an instance 
+of the Prisma client or be undefined (when no Prisma client has been initialized yet).
